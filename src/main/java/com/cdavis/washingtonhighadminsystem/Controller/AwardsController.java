@@ -44,5 +44,5 @@ public class AwardsController {
 
     /*controller route to delete request*/
     @DeleteMapping("/removeAward/{id}")
-    public void deleteAward(@PathVariable Long id) { awardsService.delete(id);
+    public void deleteAward(@PathVariable Long id) { awardsService.delete(id); }
 }
