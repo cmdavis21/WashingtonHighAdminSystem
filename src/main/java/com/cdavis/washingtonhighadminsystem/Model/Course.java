@@ -6,19 +6,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name ="course_list")
+@Table(name ="courses")
 public class Course {
+
     @Column(name = "course_code")
-    @GeneratedValue
     @Id
-    private String courseCode;
+    private String courseCode = generateUniqueCourseCode();
 
     @Column(name = "course_name")
     private String courseName;
@@ -41,24 +42,75 @@ public class Course {
     @Column(name = "course_location")
     private String classroom;
 
-    @Column(name = "course_gradebook")
-    private Gradebook courseGradebook;
+    @Column(name = "student_attendance")
+    private Map<Student, AttendanceStatus> attendance;
 
-    public Course(String courseCode, String courseName, String courseDescription, Staff teacher,
-                  LocalDate startDate, LocalDate endDate, String classroom) {
-        this.courseCode = courseCode;
-        this.courseName = courseName;
-        this.courseDescription = courseDescription;
-        this.teacher = teacher;
-        this.studentsEnrolled = new ArrayList<>();
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.classroom = classroom;
-        this.courseGradebook = new Gradebook();
+    @Column(name = "assignments")
+    private List<Assignments> assignments;
+
+    @Column(name = "student_grades")
+    private Map<Student, GradingScale> studentGrades;
+
+    public Map<Student, GradingScale> getStudentGrades() {
+        return studentGrades;
     }
 
-    // Getters and setters for the instance fields
+    public enum AttendanceStatus {
+        PRESENT,
+        ABSENT,
+        TARDY,
+        EXCUSED
+    }
 
-    // Other methods
+    public enum GradingScale {
+        A_PLUS(97, 100),
+        A(93, 96),
+        A_MINUS(90, 92),
+        B_PLUS(87, 89),
+        B(83, 86),
+        B_MINUS(80, 82),
+        C_PLUS(77, 79),
+        C(73, 76),
+        C_MINUS(70, 72),
+        D_PLUS(67, 69),
+        D(63, 66),
+        D_MINUS(60, 62),
+        F(0, 59);
+
+        private final int lowScore;
+        private final int highScore;
+
+        GradingScale(int lowScore, int highScore) {
+            this.lowScore = lowScore;
+            this.highScore = highScore;
+        }
+
+        public int getLowScore() {
+            return lowScore;
+        }
+
+        public int getHighScore() {
+            return highScore;
+        }
+    }
+
+    // Auto generate a unique course code
+    private String generateUniqueCourseCode() {
+        final String alphanumeric = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+
+        for (int i = 0; i < 5; i++) {
+            int index = random.nextInt(alphanumeric.length());
+            sb.append(alphanumeric.charAt(index));
+        }
+
+        return sb.toString();
+    }
+
+    // Calculate class average
+    public double calculateClassAverage() {
+        // Implementation logic to calculate the class average
+        // based on the grades of all students in the enrolled course
+    }
 }
-

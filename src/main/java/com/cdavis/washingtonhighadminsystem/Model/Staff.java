@@ -14,10 +14,9 @@ import java.util.List;
 @Entity
 @Table(name = "staff")
 public class Staff {
-    /* MODEL FOR STAFF */
 
     @Column(name = "staff_id")
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long staffId;
 
@@ -50,4 +49,7 @@ public class Staff {
 
     @Column(name = "date_of_hire")
     private float dateOfHire;
+
+    @Column(name = "awards")
+    private List<Awards> awards;
 }
