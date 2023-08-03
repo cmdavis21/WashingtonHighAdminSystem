@@ -7,6 +7,8 @@ Class Average, unweighted and weighted GPA, and grades are included as well.
 
 Technologies Used:
 ---
+Tools: IntelliJ Idea and VS code
+
 Backend: Java, Maven, Spring Data JPA, Spring Security, MySQL, Lombok
 
 Frontend: HTML, Sass SCSS, JavaScript
