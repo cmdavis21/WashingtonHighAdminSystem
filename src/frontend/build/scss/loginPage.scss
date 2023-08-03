@@ -1,0 +1,131 @@
+@import "./reset";
+@import "./variables";
+
+.login__layout {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.login__header {
+    position: relative;
+}
+
+.login__imgBg {
+    display: block;
+    max-height: 18rem;
+    width: 100%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.login__colorOverlay {
+    opacity: 0.80;
+    background-color: $dark-green;
+    position: absolute;
+    inset: 0;
+    @include flexCenter(column);
+   
+    & hgroup {
+        color: $white;
+        text-align: center;
+
+        & .est-logo {
+            width: 180px;
+            margin: 0 auto;
+        }
+
+        & h2 {
+            font-size: 20pt;
+            font-family: map-get($fonts, body);
+            color: $cream;
+            padding-top: 20px;
+        }
+
+        & p {
+            font-size: 10pt;
+            letter-spacing: 1.5;
+        }
+
+        & h2, p {
+            text-transform: td("uppercase");
+        }
+
+    }
+}
+
+//login form scss
+.login__main, .login__section {
+    border: 1px solid $black;
+    margin: 10px;
+}
+
+.login__section {
+    padding: 10px;
+    text-align: center;
+}
+
+.login__form {
+    
+    & label, input {
+        display: block;
+        width: 85%;
+        border-radius: 10px;
+        margin: 30px auto;
+        font-size: smaller;
+    }
+
+    & input {
+        color: $black;
+        background-color: $orange;
+    }
+
+    & label, input[type="submit"] {
+        text-transform: td("uppercase");
+    }
+
+    & input[type="submit"] {
+        margin-top: 30px;
+        width: 50%;
+        color: $white;
+        background-color: $dark-green;
+    }
+
+    & input[type="submit"]:hover {
+        color: $orange;
+        border: 2px solid $orange;
+    }
+}
+
+//media query for desktop layout
+@media (min-width: 700px) {
+    .login__layout {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .login__imgBg {
+        min-height: 100%;
+        object-fit: cover;
+    }
+    
+    .login__colorOverlay {
+        inset: auto 0 0 0;
+        width: 75%;
+        height: 50%;
+        hgroup {
+            width: 75%;
+            margin: 0 auto;
+        }
+    }
+}
+
+//media query for login__colorOverlay
+@media (max-width: 450px) {
+    .login__colorOverlay {
+        hgroup {
+            width: 100%;
+            margin: 0;
+        }
+    }
+}
+
+

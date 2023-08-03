@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.Map;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,6 +21,12 @@ public class Assignments {
     @Column(name = "assignment_name")
     @Id
     private String assignmentName;
+
+    @Column(name = "course_code")
+    private Course courseCode;
+
+    @Column(name = "course_name")
+    private Course courseName;
 
     @Column(name = "assignment_type")
     private AssignmentType type;
@@ -36,14 +43,15 @@ public class Assignments {
     @Column(name = "date_due")
     private Date dateDue;
 
+    @Column(name = "student_grades")
+    private static Map<Student, Double> studentGrades; //map to store student grades
+
     @Column(name = "semester_year")
     private String semesterAndYear;
 
-    @Column(name = "course_code")
-    private Course courseCode;
-
-    @Column(name = "course_name")
-    private Course courseName;
+    public static Map<Student, Double> getStudentGrades() {
+        return studentGrades;
+    }
 
     public enum AssignmentType {
         HOMEWORK,

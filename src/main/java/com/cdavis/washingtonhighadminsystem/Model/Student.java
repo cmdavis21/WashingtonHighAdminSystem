@@ -30,13 +30,13 @@ public class Student {
     private int gradeLevel;
 
     @Column(name = "gpa_weighted")
-    private calculateStudentGPAWeighted gpaWeighted;
+    private double gpaWeighted;
 
     @Column(name = "gpa_unweighted")
-    private calculateStudentGPAUnweighted gpaUnweighted;
+    private double gpaUnweighted;
 
     @Column(name = "enrolled_courses")
-    private List<Course> enrolledCourses;
+    private static List<Course> enrolledCourses;
 
     @Column(name = "attendance_status")
     private List<Course> attendance;
@@ -68,60 +68,86 @@ public class Student {
     @Column(name = "awards")
     private List<Awards> awards;
 
-    //calculate student GPA weighted
-    public static double calculateStudentGPAWeighted() {
+//    public Student() {
+//        // Calculate and set the weighted GPA value
+//        this.gpaWeighted = calculateStudentGPAWeighted();
+//        // Calculate and set the unweighted GPA value
+//        this.gpaUnweighted = calculateStudentGPAUnweighted();
+//    }
 
-    }
-
-    //calculate student GPA Unweighted
-    public static double calculateStudentGPAUnweighted(List<Course> enrolledCourses) {
-        double totalPoints = 0.0;
-        int totalCourses = enrolledCourses.size();
-
-        //iterate over each enrolled course
-        for (Course course : enrolledCourses) {
-            double studentGrades = course.getStudentGrades();
-
-            //convert course number (double) grade to gpa
-            double courseGPAValue = convertGradeToGPA(studentGrades);
-
-            //add course GPA value to totalPoints
-            totalPoints += courseGPAValue;
-        }
-
-        //calculate unweighted GPA by dividing totalPoints by totalCourses
-        double unweightedGPA = totalPoints / totalCourses;
-
-        return unweightedGPA;
-    }
-
-    // Helper method to convert grade to GPA letter values
-    private static double convertGradeToGpa(Course.GradingScale grade) {
-        // Map the grade to GPA letter values
-        String letterGrade;
-        double gpaPoint = 0.0;
-
-        if (grade >= 90 && grade <= 100) {
-            letterGrade = "A";
-            gpaPoint = 4.0;
-        }
-        else if (grade >= 80 && grade <= 89) {
-            letterGrade = "B";
-            gpaPoint = 3.0;
-        }
-        else if (grade >= 70 && grade <= 79) {
-            letterGrade = "C";
-            gpaPoint = 2.0;
-        }
-        else if (grade >= 60 && grade <= 69) {
-            letterGrade = "D";
-            gpaPoint = 1.0;
-        }
-        else {
-            letterGrade = "F";
-            gpaPoint = 0.0;
-        }
-
-        return gpaPoint;
-    }
+//    private List<Course> getEnrolledCourses() {
+//        return enrolledCourses;
+//    }
+//
+//    public double calculateStudentGPAWeighted(Student student) {
+//        double totalWeightedPoints = 0.0;
+//        double totalWeight = 0.0;
+//
+//        // Iterate over each enrolled course of the student
+//        for (Course course : student.getEnrolledCourses()) {
+//            // Iterate over each assignment in the course
+//            for (Assignments assignment : course.getAssignments()) {
+//                double grade = assignment.getStudentGrades().get(student); // Get the grade for the provided student
+//                double weight = assignment.getAssignmentWeight();
+//
+//                // Convert course grade to GPA
+//                double courseGPAValue = convertGradeToGPA(grade);
+//
+//                // Calculate the weighted GPA for the assignment
+//                double weightedGPA = courseGPAValue * (weight / 100.0);
+//
+//                // Add the weighted GPA to the total
+//                totalWeightedPoints += weightedGPA;
+//                totalWeight += weight;
+//            }
+//        }
+//
+//        // Calculate the weighted GPA by dividing totalWeightedPoints by totalWeight
+//        double weightedGPA = totalWeightedPoints / totalWeight;
+//
+//        return weightedGPA;
+//    }
+//
+//    public static double calculateStudentGPAUnweighted() {
+//        double totalPoints = 0.0;
+//        int totalCourses = enrolledCourses.size();
+//
+//        // Iterate over each enrolled course of the student
+//        for (Course course : enrolledCourses) {
+//            // Iterate over each assignment in the course
+//            for (Assignments assignment : course.getAssignments()) {
+//                double grade = assignment.getStudentGrades().get(this); // Get the grade for this student
+//
+//                // Convert course number (double) grade to GPA
+//                double courseGPAValue = convertGradeToGPA(grade);
+//
+//                // Add course GPA value to totalPoints
+//                totalPoints += courseGPAValue;
+//            }
+//        }
+//
+//        // Calculate unweighted GPA by dividing totalPoints by totalCourses
+//        double unweightedGPA = totalPoints / totalCourses;
+//
+//        return unweightedGPA;
+//    }
+//
+//    // Helper method to convert grade to GPA value
+//    private static double convertGradeToGPA(double grade) {
+//        double gpaPoint = 0.0;
+//
+//        if (grade >= 90 && grade <= 100) {
+//            gpaPoint = 4.0;
+//        } else if (grade >= 80 && grade <= 89) {
+//            gpaPoint = 3.0;
+//        } else if (grade >= 70 && grade <= 79) {
+//            gpaPoint = 2.0;
+//        } else if (grade >= 60 && grade <= 69) {
+//            gpaPoint = 1.0;
+//        } else if (grade <= 59) {
+//            gpaPoint = 0.0;
+//        }
+//
+//        return gpaPoint;
+//    }
 }

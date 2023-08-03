@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,10 +29,16 @@ public class Awards {
     private LocalDate dateReceived;
 
     @Column(name = "award_criteria")
-    private String criteria; //represents any specific criteria or requirements associated with the award.
+    private String criteria; //represents any specific criteria or met requirements associated with the award.
 
     @Column(name = "award_details")
     private String details; //provides additional details or descriptions related to the award.
+
+    @Column(name = "students_awarded")
+    private Map<Student, Awards> studentsAwarded;
+
+    @Column(name = "staff_awarded")
+    private Map<Staff, Awards> staffAwarded;
 
     public enum AwardType {
         STUDENT,

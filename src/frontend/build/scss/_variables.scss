@@ -1,0 +1,61 @@
+// primary colors
+$cream: #FFFCEB; /*background*/
+$moss-green: #41644A; /*accent, subheaders*/
+$dark-green: #263A29; /*accent, subheaders or italic text*/
+$orange: #E86A33; /*accent, main header*/
+$black: #000000; /*text*/
+$white: #FFFFFF; /*text*/
+
+// fonts
+$fonts: (
+  "title": "Times New Roman, sans-serif",
+  "body": "Inter, sans-serif"
+);
+
+// font sizes
+$font-sizes: (
+    "h1" : 25pt,
+    "h2" : 22pt,
+    "h3" : 19pt,
+    "p" : 16pt,
+    "fine-h1" : 13pt,
+    "fine-h2" : 12pt,
+    "fine-h3" : 11pt,
+    "fine-p" : 11pt
+);
+
+@function fs($size) {
+    @return map-get($font-sizes, $size);
+}
+
+// font weight
+$font-weight: (
+    "100" : 100,
+    "300" : 300,
+    "400" : 400
+);
+
+@function fw($weight) {
+    @return map-get($font-weight, $weight);
+}
+
+// text decoration
+$text-decoration: (
+    "italic" : italic,
+    "uppercase" : uppercase,
+    "lowercase" : lowercase,
+    "underline" : underline,
+    "line-through" : line-through,
+);
+
+@function td($decoration) {
+    @return map-get($text-decoration, $decoration);
+}
+
+//flex center for body
+@mixin flexCenter ($direction) {
+    display: flex;
+    // align-items: center;
+    justify-content: center;
+    flex-direction: $direction;
+}

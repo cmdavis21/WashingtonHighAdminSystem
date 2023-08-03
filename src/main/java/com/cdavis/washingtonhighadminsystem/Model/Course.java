@@ -48,12 +48,8 @@ public class Course {
     @Column(name = "assignments")
     private List<Assignments> assignments;
 
-    @Column(name = "student_grades")
-    private Map<Student, GradingScale> studentGrades;
-
-    public Map<Student, GradingScale> getStudentGrades() {
-        return studentGrades;
-    }
+    @Column(name = "gradingScale")
+    private GradingScale gradingScale;
 
     public enum AttendanceStatus {
         PRESENT,
@@ -63,26 +59,32 @@ public class Course {
     }
 
     public enum GradingScale {
-        A_PLUS(97, 100),
-        A(93, 96),
-        A_MINUS(90, 92),
-        B_PLUS(87, 89),
-        B(83, 86),
-        B_MINUS(80, 82),
-        C_PLUS(77, 79),
-        C(73, 76),
-        C_MINUS(70, 72),
-        D_PLUS(67, 69),
-        D(63, 66),
-        D_MINUS(60, 62),
-        F(0, 59);
+        A_PLUS("A+", 97, 100),
+        A("A", 93, 96),
+        A_MINUS("A-", 90, 92),
+        B_PLUS("B+", 87, 89),
+        B("B", 83, 86),
+        B_MINUS("B-", 80, 82),
+        C_PLUS("C+", 77, 79),
+        C("C", 73, 76),
+        C_MINUS("C-", 70, 72),
+        D_PLUS("D+", 67, 69),
+        D("D", 63, 66),
+        D_MINUS("D-", 60, 62),
+        F("F", 0, 59);
 
+        private final String letterGrade;
         private final int lowScore;
         private final int highScore;
 
-        GradingScale(int lowScore, int highScore) {
+        GradingScale(String letterGrade, int lowScore, int highScore) {
+            this.letterGrade = letterGrade;
             this.lowScore = lowScore;
             this.highScore = highScore;
+        }
+
+        public String getLetterGrade() {
+            return letterGrade;
         }
 
         public int getLowScore() {
@@ -108,9 +110,51 @@ public class Course {
         return sb.toString();
     }
 
-    // Calculate class average
-    public double calculateClassAverage() {
-        // Implementation logic to calculate the class average
-        // based on the grades of all students in the enrolled course
+    public static String convertPointsToLetterGrade(double grade) {
+        for (GradingScale scale : GradingScale.values()) {
+            if (grade >= scale.getLowScore() && grade <= scale.getHighScore()) {
+                return scale.getLetterGrade();
+            }
+        }
+        return "N/A"; // Return "N/A" if the grade is not within any scale range
     }
+
+    public double calculateClassAverage() {
+        double totalPoints = 0.0;
+        int totalStudents = studentsEnrolled.size();
+
+        // Iterate over each assignment to get student grades
+        for (Assignments assignment : assignments) {
+            Map<Student, Double> grades = assignment.getStudentGrades();
+
+            // Iterate over each student and their grade
+            for (Map.Entry<Student, Double> entry : grades.entrySet()) {
+                Double grade = entry.getValue();
+                totalPoints += grade;
+            }
+        }
+
+        // Calculate the class average by dividing the total points by the total number of students
+        double classAverage = totalPoints / totalStudents;
+        return classAverage;
+    }
+
+//    public void updateGrades(List<Assignments> updatedAssignments) {
+//        // Update the grades for the course's assignments
+//        // ...
+//
+//        // Recalculate and update GPA values for enrolled students
+//        for (Student student : studentsEnrolled) {
+//            student.setGpaWeighted(Student.calculateStudentGPAWeighted());
+//            student.setGpaUnweighted(Student.calculateStudentGPAUnweighted());
+//        }
+//    }
+//
+//    public void enrollInCourse(Student student) {
+//        // Add the student to the list of enrolled students
+//        studentsEnrolled.add(student);
+//        // Recalculate and update GPA values for the enrolled student
+//        student.setGpaWeighted(Student.calculateStudentGPAWeighted());
+//        student.setGpaUnweighted(Student.calculateStudentGPAUnweighted());
+//    }
 }

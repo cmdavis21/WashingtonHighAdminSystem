@@ -7,14 +7,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class WashingtonHighAdminSystemApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(WashingtonHighAdminSystemApplication.class, args);
+		/*---- WASHINGTON HIGH SCHOOL ADMINISTRATION REPORT MENU START ----*/
+
+
+
+
+
+		/*---- WASHINGTON HIGH SCHOOL ADMINISTRATION REPORT MENU END ----*/
+
 	}
-
-	/*---- WASHINGTON HIGH SCHOOL ADMINISTRATION REPORT MENU START ----*/
-
-
-
-
-
-	/*---- WASHINGTON HIGH SCHOOL ADMINISTRATION REPORT MENU END ----*/
 }
