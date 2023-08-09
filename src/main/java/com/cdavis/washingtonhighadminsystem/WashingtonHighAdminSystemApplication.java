@@ -16,6 +16,5 @@ public class WashingtonHighAdminSystemApplication {
 
 
 		/*---- WASHINGTON HIGH SCHOOL ADMINISTRATION REPORT MENU END ----*/
-
 	}
 }

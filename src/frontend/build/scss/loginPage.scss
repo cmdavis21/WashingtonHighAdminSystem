@@ -2,8 +2,7 @@
 @import "./variables";
 
 .login__layout {
-    display: grid;
-    grid-template-columns: 1fr;
+    @include flexCenter(column);
 }
 
 .login__header {
@@ -53,7 +52,7 @@
     }
 }
 
-//login form scss
+//login form
 .login__main, .login__section {
     border: 1px solid $black;
     margin: 10px;
@@ -99,7 +98,7 @@
 //media query for desktop layout
 @media (min-width: 700px) {
     .login__layout {
-        grid-template-columns: 1fr 1fr;
+        @include flexCenter(row);
     }
 
     .login__imgBg {

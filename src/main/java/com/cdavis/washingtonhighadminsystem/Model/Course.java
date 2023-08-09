@@ -30,9 +30,6 @@ public class Course {
     @Column(name = "course_teacher")
     private Staff teacher;
 
-    @Column(name = "students_enrolled")
-    private List<Student> studentsEnrolled;
-
     @Column(name = "course_start_date")
     private LocalDate startDate;
 
@@ -42,14 +39,22 @@ public class Course {
     @Column(name = "course_location")
     private String classroom;
 
-    @Column(name = "student_attendance")
-    private Map<Student, AttendanceStatus> attendance;
-
-    @Column(name = "assignments")
-    private List<Assignments> assignments;
-
     @Column(name = "gradingScale")
     private GradingScale gradingScale;
+
+    @OneToMany
+    @JoinColumn(name = "course_code")
+    private List<Student> studentsEnrolled;
+
+    @ElementCollection
+    @CollectionTable(name = "course_attendance") // You might need to adjust the table name
+    @MapKeyJoinColumn(name = "student_id") // Adjust the column name based on your database schema
+    @Column(name = "attendance_status")
+    private Map<Student, AttendanceStatus> attendance;
+
+    @OneToMany
+    @JoinColumn(name = "course_code")
+    private List<Assignments> assignments;
 
     public enum AttendanceStatus {
         PRESENT,
