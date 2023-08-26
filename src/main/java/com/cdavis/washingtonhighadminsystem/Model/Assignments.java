@@ -1,9 +1,6 @@
 package com.cdavis.washingtonhighadminsystem.Model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -43,15 +40,18 @@ public class Assignments {
     @Column(name = "date_due")
     private Date dateDue;
 
-    @Column(name = "student_grades")
-    private static Map<Student, Double> studentGrades; //map to store student grades
+    //mapping assignments.java to course.java
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private Course course;
+
+    @ElementCollection
+    @MapKeyJoinColumn(name = "student_id")
+    @Column(name = "grade")
+    private Map<Student, Double> studentGrades;
 
     @Column(name = "semester_year")
     private String semesterAndYear;
-
-    public static Map<Student, Double> getStudentGrades() {
-        return studentGrades;
-    }
 
     public enum AssignmentType {
         HOMEWORK,

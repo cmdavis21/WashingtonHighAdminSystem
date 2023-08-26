@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Map;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,11 +34,21 @@ public class Awards {
     @Column(name = "award_details")
     private String details; //provides additional details or descriptions related to the award.
 
-    @Column(name = "students_awarded")
-    private Map<Student, Awards> studentsAwarded;
+    @ManyToMany
+    @JoinTable(
+            name = "student_awards",
+            joinColumns = @JoinColumn(name = "award_id"),
+            inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
+    private List<Student> studentsAwarded;
 
-    @Column(name = "staff_awarded")
-    private Map<Staff, Awards> staffAwarded;
+    @ManyToMany
+    @JoinTable(
+            name = "staff_awards",
+            joinColumns = @JoinColumn(name = "award_id"),
+            inverseJoinColumns = @JoinColumn(name = "staff_id")
+    )
+    private List<Staff> staffAwarded;
 
     public enum AwardType {
         STUDENT,

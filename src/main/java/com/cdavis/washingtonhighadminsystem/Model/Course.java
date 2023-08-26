@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -18,7 +19,7 @@ import java.util.Random;
 public class Course {
 
     @Column(name = "course_code")
-    @Id
+    @Id //foreign key
     private String courseCode = generateUniqueCourseCode();
 
     @Column(name = "course_name")
@@ -42,18 +43,15 @@ public class Course {
     @Column(name = "gradingScale")
     private GradingScale gradingScale;
 
-    @OneToMany
-    @JoinColumn(name = "course_code")
-    private List<Student> studentsEnrolled;
+    @OneToMany(mappedBy = "course")
+    private List<Enrollment> enrollment = new ArrayList<>();
 
     @ElementCollection
-    @CollectionTable(name = "course_attendance") // You might need to adjust the table name
-    @MapKeyJoinColumn(name = "student_id") // Adjust the column name based on your database schema
-    @Column(name = "attendance_status")
+    @CollectionTable(name = "course_attendance")
+    @MapKeyJoinColumn(name = "student_id")
     private Map<Student, AttendanceStatus> attendance;
 
-    @OneToMany
-    @JoinColumn(name = "course_code")
+    @OneToMany(mappedBy = "course")
     private List<Assignments> assignments;
 
     public enum AttendanceStatus {
@@ -115,34 +113,34 @@ public class Course {
         return sb.toString();
     }
 
-    public static String convertPointsToLetterGrade(double grade) {
-        for (GradingScale scale : GradingScale.values()) {
-            if (grade >= scale.getLowScore() && grade <= scale.getHighScore()) {
-                return scale.getLetterGrade();
-            }
-        }
-        return "N/A"; // Return "N/A" if the grade is not within any scale range
-    }
-
-    public double calculateClassAverage() {
-        double totalPoints = 0.0;
-        int totalStudents = studentsEnrolled.size();
-
-        // Iterate over each assignment to get student grades
-        for (Assignments assignment : assignments) {
-            Map<Student, Double> grades = assignment.getStudentGrades();
-
-            // Iterate over each student and their grade
-            for (Map.Entry<Student, Double> entry : grades.entrySet()) {
-                Double grade = entry.getValue();
-                totalPoints += grade;
-            }
-        }
-
-        // Calculate the class average by dividing the total points by the total number of students
-        double classAverage = totalPoints / totalStudents;
-        return classAverage;
-    }
+//    public static String convertPointsToLetterGrade(double grade) {
+//        for (GradingScale scale : GradingScale.values()) {
+//            if (grade >= scale.getLowScore() && grade <= scale.getHighScore()) {
+//                return scale.getLetterGrade();
+//            }
+//        }
+//        return "N/A"; // Return "N/A" if the grade is not within any scale range
+//    }
+//
+//    public double calculateClassAverage() {
+//        double totalPoints = 0.0;
+//        int totalStudents = studentsEnrolled.size();
+//
+//        // Iterate over each assignment to get student grades
+//        for (Assignments assignment : assignments) {
+//            Map<Student, Double> grades = assignment.getStudentGrades();
+//
+//            // Iterate over each student and their grade
+//            for (Map.Entry<Student, Double> entry : grades.entrySet()) {
+//                Double grade = entry.getValue();
+//                totalPoints += grade;
+//            }
+//        }
+//
+//        // Calculate the class average by dividing the total points by the total number of students
+//        double classAverage = totalPoints / totalStudents;
+//        return classAverage;
+//    }
 
 //    public void updateGrades(List<Assignments> updatedAssignments) {
 //        // Update the grades for the course's assignments

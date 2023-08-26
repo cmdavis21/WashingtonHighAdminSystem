@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalTime;
 import java.util.List;
 
 @AllArgsConstructor
@@ -17,7 +16,7 @@ public class Staff {
 
     @Column(name = "staff_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+    @Id //foreign key
     private Long staffId;
 
     @Column(name = "staff_first_name")
@@ -36,8 +35,10 @@ public class Staff {
     private String officeLocation;
 
     @Column(name = "office_hours")
-    private LocalTime officeHours;
+    private String officeHours;
 
+    @CollectionTable(name = "courses_taught")
+    @MapKeyJoinColumn(name = "course_code")
     @Column(name = "courses_taught")
     private List<Course> coursesTaught;
 
@@ -50,6 +51,6 @@ public class Staff {
     @Column(name = "date_of_hire")
     private float dateOfHire;
 
-    @Column(name = "awards")
+    @ManyToMany(mappedBy = "staffAwarded")
     private List<Awards> awards;
 }

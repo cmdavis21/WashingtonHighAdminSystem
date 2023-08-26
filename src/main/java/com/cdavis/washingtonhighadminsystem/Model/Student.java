@@ -6,7 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,7 +19,7 @@ public class Student {
 
     @Column(name = "student_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
+    @Id //foreign key
     private Long studentId;
 
     @Column(name = "student_first_name")
@@ -35,11 +37,12 @@ public class Student {
     @Column(name = "gpa_unweighted")
     private double gpaUnweighted;
 
-    @Column(name = "enrolled_courses")
-    private static List<Course> enrolledCourses;
+    @OneToMany(mappedBy = "student")
+    private List<Enrollment> enrollment = new ArrayList<>();
 
-    @Column(name = "attendance_status")
-    private List<Course> attendance;
+    @OneToMany(mappedBy = "student")
+    @MapKeyJoinColumn(name = "course_id")
+    private Map<Course, Course.AttendanceStatus> attendance;
 
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
@@ -65,8 +68,9 @@ public class Student {
     @Column(name = "parent_email")
     private String parentEmail;
 
-    @Column(name = "awards")
+    @ManyToMany(mappedBy = "studentsAwarded")
     private List<Awards> awards;
+
 
 //    public Student() {
 //        // Calculate and set the weighted GPA value

@@ -1,0 +1,50 @@
+@import "./reset";
+@import "./variables";
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: $cream; 
+    font-family: map-get($fonts, body);
+}
+
+main {
+    color: $black;
+    font-size: fs(p);
+    font-weight: fw(300);
+}
+
+h1, h2, h3 {
+    letter-spacing: 1px;
+    line-height: 1.5;
+    font-family: map-get($fonts, title);
+}
+
+h1 {
+    font-size: fs(h1);
+}
+
+h2 {
+    font-size: fs(h2);
+}
+
+h3 {
+    font-size: fs(h3);
+}
+
+a {
+    color: blue;
+    text-align: center;
+    font-style: td("italic");
+    font-size: fs("fine-p");
+    text-decoration: td("underline");
+}
+
+a:hover {
+    color: purple;
+}
+
+footer {
+    bottom: 0;
+    position: relative;
+}
