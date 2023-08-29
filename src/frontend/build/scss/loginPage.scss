@@ -1,9 +1,6 @@
 @import "./reset";
 @import "./variables";
 
-.login__layout {
-    @include flexCenter(column);
-}
 
 .login__header {
     position: relative;
@@ -22,11 +19,12 @@
     background-color: $dark-green;
     position: absolute;
     inset: 0;
-    @include flexCenter(column);
+    @include flex(column);
    
     & hgroup {
         color: $white;
         text-align: center;
+        padding-top: 2rem;
 
         & .est-logo {
             width: 180px;
@@ -35,7 +33,7 @@
 
         & h2 {
             font-size: 20pt;
-            font-family: map-get($fonts, body);
+            font-family: $ff-body;
             color: $cream;
             padding-top: 20px;
         }
@@ -48,11 +46,18 @@
         & h2, p {
             text-transform: td("uppercase");
         }
-
     }
 }
 
-//login form
+// LOGIN FORM
+.login__main {
+    background-color: $orange;
+}
+
+.login__section {
+    background-color: $cream;
+}
+
 .login__main, .login__section {
     border: 1px solid $black;
     margin: 10px;
@@ -75,6 +80,7 @@
 
     & input {
         color: $black;
+        text-align: center;
         background-color: $orange;
     }
 
@@ -95,10 +101,10 @@
     }
 }
 
-//media query for desktop layout
+// MEDIA QUERY - DESKTOP PAGE LAYOUT
 @media (min-width: 700px) {
     .login__layout {
-        @include flexCenter(row);
+        @include flex(row);
     }
 
     .login__imgBg {
@@ -117,7 +123,7 @@
     }
 }
 
-//media query for login__colorOverlay
+//MEDIA QUERY - COLOR OVERLAY
 @media (max-width: 450px) {
     .login__colorOverlay {
         hgroup {

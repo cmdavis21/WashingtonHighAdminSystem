@@ -9,16 +9,19 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;300;400&display=swap" rel="stylesheet">
 
+        <!-- FONTAWESOME -->
+        <script src="https://kit.fontawesome.com/fc88c1d343.js" crossorigin="anonymous"></script>
+
         <!-- CSS FILES -->
-        <link rel="stylesheet" href="./css/reset.css">
-        <link rel="stylesheet" href="./css/generalStyles.css">
-        <link rel="stylesheet" href="./css/loginPage.css">
+        <link rel="stylesheet" type="text/css" href="./css/generalStyles.css">
+        <link rel="stylesheet" type="text/css" href="./css/loginPage.css">
+        <link rel="stylesheet" type="text/css" href="./css/footer.css">
 
         <!-- JS FILES -->
-        <script src="./js/_footer.js" defer></script>
+        <script src="./js/_footer.js" type="application/javascript" defer></script>
 
         <!-- BROWSER LOGO -->
-        <link href="./dist/images/logo.png" rel="icon" type="image/icon">
+        <link rel="icon" type="image/icon" href="./images/logo.png">
 
         <title>Welcome to Washington High!</title>
     </head>
@@ -35,6 +38,7 @@
                 </hgroup>
             </div>
         </header>
+
         <main class="login__main">
             <section class="login__section">
                 <h4>Please login to continue.</h4>
@@ -42,16 +46,15 @@
                     <label for="lname">Enter your last name:</label>
                     <input type="text" id="lname" placeholder="i.e., Johnson">
                     <label for="staffId">Enter your staff id number:</label>
-                    <input type="text" id="StaffId" placeholder="i.e., 746893">
+                    <input type="number" id="StaffId" placeholder="i.e., 746893">
                     <input type="submit" value="Login">
                 </form>
-                <a>New to Washington High Staff? Learn how to use our portal</a>
-                <!--flip card - Or Create your Account.-->
-                <!--*create account form*-->
+                <a>New to Washington High Staff?<br>Learn how to use our portal</a>
             </section>
         </main>
-        <div id="footer-container">
-            <!-- JS will inject footer module -->
-        </div>
     </body>
+
+    <footer class="page-footer">
+        <!-- JS inject footer module -->
+    </footer>
 </html>

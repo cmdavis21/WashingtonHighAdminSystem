@@ -4,8 +4,8 @@
 body {
     width: 100vw;
     height: 100vh;
-    background-color: $cream; 
-    font-family: map-get($fonts, body);
+    background-color: linear-gradient(to bottom, $cream, $moss-green); 
+    font-family: $ff-body;
 }
 
 main {
@@ -17,7 +17,7 @@ main {
 h1, h2, h3 {
     letter-spacing: 1px;
     line-height: 1.5;
-    font-family: map-get($fonts, title);
+    font-family: $ff-title;
 }
 
 h1 {
@@ -38,10 +38,6 @@ a {
     font-style: td("italic");
     font-size: fs("fine-p");
     text-decoration: td("underline");
-}
-
-a:hover {
-    color: purple;
 }
 
 footer {
