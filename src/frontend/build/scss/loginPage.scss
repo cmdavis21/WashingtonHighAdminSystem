@@ -81,7 +81,8 @@
     & input {
         color: $black;
         text-align: center;
-        background-color: $orange;
+        background-color: $cream;
+        border: 2px solid $dark-green;
     }
 
     & label, input[type="submit"] {
