@@ -54,7 +54,7 @@ public class Course {
     @OneToMany(mappedBy = "course")
     private List<Assignments> assignments;
 
-    public enum AttendanceStatus {
+    public static enum AttendanceStatus {
         PRESENT,
         ABSENT,
         TARDY,
