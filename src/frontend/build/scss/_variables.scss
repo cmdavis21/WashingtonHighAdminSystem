@@ -7,8 +7,8 @@ $black: #000000; /*text*/
 $white: #FFFFFF; /*text*/
 
 // FONTS
-$ff-title: "Times New Roman, sans-serif";
-$ff-body: "Inter, sans-serif";
+$ff-title: "Times New Roman", sans-serif;
+$ff-body: "Inter", sans-serif;
 
 // FONT SIZES
 $font-sizes: (
@@ -62,3 +62,9 @@ $text-decoration: (
 @mixin grid() {
     display: grid;
 }
+
+// BOX-SHADOW
+$boxShadow: 0 1px 4px rgba(0, 0, 0, .8);
+
+// BORDER-RADIUS
+$br: 30px;

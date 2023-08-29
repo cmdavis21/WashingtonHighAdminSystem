@@ -58,9 +58,9 @@
             color: $white;
         }
 
-        & ul li:hover {
-            border-radius: 30px;
-            box-shadow: 0 1px 4px rgba(0, 0, 0, .8);
+        & ul li:hover, ul li:active {
+            border-radius: $br;
+            box-shadow: $boxShadow;
 
             & a {
                 color: $orange;
@@ -103,6 +103,12 @@
             & li a i {
                 font-size: 14pt;
                 color: $orange;
+                padding: 0.5rem 1rem;
+            }
+
+            & li a i:hover, li a i:active {
+                border-radius: $br;
+                box-shadow: $boxShadow;
             }
         }
     }
