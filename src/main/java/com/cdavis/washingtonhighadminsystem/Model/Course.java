@@ -46,20 +46,11 @@ public class Course {
     @OneToMany(mappedBy = "course")
     private List<Enrollment> enrollment = new ArrayList<>();
 
-    @ElementCollection
-    @CollectionTable(name = "course_attendance")
-    @MapKeyJoinColumn(name = "student_id")
-    private Map<Student, AttendanceStatus> attendance;
+    @OneToMany(mappedBy = "course")
+    private List<Attendance> attendance;
 
     @OneToMany(mappedBy = "course")
     private List<Assignments> assignments;
-
-    public static enum AttendanceStatus {
-        PRESENT,
-        ABSENT,
-        TARDY,
-        EXCUSED
-    }
 
     public enum GradingScale {
         A_PLUS("A+", 97, 100),

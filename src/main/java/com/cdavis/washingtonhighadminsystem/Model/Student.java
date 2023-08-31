@@ -41,8 +41,7 @@ public class Student {
     private List<Enrollment> enrollment = new ArrayList<>();
 
     @OneToMany(mappedBy = "student")
-    @MapKeyJoinColumn(name = "course_id")
-    private Map<Course, Course.AttendanceStatus> attendance;
+    private List<Attendance> attendance;
 
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
