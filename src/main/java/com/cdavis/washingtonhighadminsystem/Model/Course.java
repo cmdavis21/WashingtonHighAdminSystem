@@ -40,6 +40,7 @@ public class Course {
     @Column(name = "course_location")
     private String classroom;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "gradingScale")
     private GradingScale gradingScale;
 
@@ -50,7 +51,7 @@ public class Course {
     private List<Attendance> attendance;
 
     @OneToMany(mappedBy = "course")
-    private List<Assignments> assignments;
+    private List<Assignments> courseAssignments;
 
     public enum GradingScale {
         A_PLUS("A+", 97, 100),

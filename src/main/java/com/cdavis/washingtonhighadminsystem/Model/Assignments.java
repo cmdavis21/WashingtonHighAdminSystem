@@ -25,6 +25,7 @@ public class Assignments {
     @Column(name = "course_name")
     private Course courseName;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "assignment_type")
     private AssignmentType type;
 
@@ -40,10 +41,9 @@ public class Assignments {
     @Column(name = "date_due")
     private Date dateDue;
 
-    //mapping assignments.java to course.java
     @ManyToOne
     @JoinColumn(name = "course_id")
-    private Course course;
+    private Course courseAssigned;
 
     @ElementCollection
     @MapKeyJoinColumn(name = "student_id")
