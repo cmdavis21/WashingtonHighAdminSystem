@@ -50,14 +50,11 @@ public class Course {
     @OneToMany(mappedBy = "course")
     private List<Attendance> attendance;
 
-    @OneToMany(mappedBy = "course")
+    @Column(name = "course_assignments")
     private List<Assignments> courseAssignments;
 
-    @ElementCollection
-    @CollectionTable(name = "assignment_grades")
-    @MapKeyJoinColumn(name = "assignment_id") // Foreign key to Assignments table
-    @Column(name = "grade")
-    private Map<Assignments, Double> studentGrades; // Map assignment to grade
+    @OneToMany(mappedBy = "course")
+    private List<AssignmentStudentGrades> studentGrades = new ArrayList<>();
 
     // Auto generate a unique course code
     private String generateUniqueCourseCode() {

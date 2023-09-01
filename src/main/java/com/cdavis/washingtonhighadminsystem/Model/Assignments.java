@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.Map;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -41,7 +41,7 @@ public class Assignments {
     private GradeScale.GradingScale gradingScale;
 
     @OneToMany(mappedBy = "assignment")
-    private Map<Student, Double> studentGrades;
+    private List<AssignmentStudentGrades> studentGrades;
 
     @Column(name = "date_assigned")
     private Date dateAssigned;
@@ -57,10 +57,5 @@ public class Assignments {
         QUIZ,
         PROJECT,
         EXAM
-    }
-
-    // Update a student's grade for this assignment
-    public void updateStudentGrade(Student student, double newGrade) {
-        studentGrades.put(student, newGrade);
     }
 }

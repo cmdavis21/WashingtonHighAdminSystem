@@ -67,7 +67,7 @@ public class Student {
     @Column(name = "parent_email")
     private String parentEmail;
 
-    @ManyToMany(mappedBy = "studentsAwards")
+    @ManyToMany(mappedBy = "student_awards")
     private List<Awards> awards;
 
     //method to calculate students' weighted GPA
