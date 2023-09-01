@@ -14,9 +14,9 @@ import java.util.List;
 @Table(name = "staff")
 public class Staff {
 
+    @Id
     @Column(name = "staff_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id //foreign key
     private Long staffId;
 
     @Column(name = "staff_first_name")

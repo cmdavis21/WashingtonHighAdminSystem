@@ -15,10 +15,12 @@ import java.util.Map;
 @Table(name = "Assignments")
 public class Assignments {
 
-    @Column(name = "assignment_name")
     @Id
+    @Column(name = "assignment_name")
     private String assignmentName;
 
+    @ManyToOne
+    @JoinColumn(name = "course_code")
     @Column(name = "course_code")
     private Course courseCode;
 
@@ -30,25 +32,23 @@ public class Assignments {
     private AssignmentType type;
 
     @Column(name = "assignment_weight")
-    private int assignmentWeight;
+    private float assignmentWeight;
 
     @Column(name = "assignment_points")
     private double availablePoints;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "grading_scale")
+    private GradeScale.GradingScale gradingScale;
+
+    @OneToMany(mappedBy = "assignment")
+    private Map<Student, Double> studentGrades;
 
     @Column(name = "date_assigned")
     private Date dateAssigned;
 
     @Column(name = "date_due")
     private Date dateDue;
-
-    @ManyToOne
-    @JoinColumn(name = "course_id")
-    private Course courseAssigned;
-
-    @ElementCollection
-    @MapKeyJoinColumn(name = "student_id")
-    @Column(name = "grade")
-    private Map<Student, Double> studentGrades;
 
     @Column(name = "semester_year")
     private String semesterAndYear;
@@ -58,5 +58,10 @@ public class Assignments {
         QUIZ,
         PROJECT,
         EXAM
+    }
+
+    // Update a student's grade for this assignment
+    public void updateStudentGrade(Student student, double newGrade) {
+        studentGrades.put(student, newGrade);
     }
 }

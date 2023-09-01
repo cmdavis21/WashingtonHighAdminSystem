@@ -18,8 +18,8 @@ import java.util.Random;
 @Table(name ="courses")
 public class Course {
 
+    @Id
     @Column(name = "course_code")
-    @Id //foreign key
     private String courseCode = generateUniqueCourseCode();
 
     @Column(name = "course_name")
@@ -41,8 +41,8 @@ public class Course {
     private String classroom;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "gradingScale")
-    private GradingScale gradingScale;
+    @Column(name = "grading_scale")
+    private GradeScale.GradingScale gradingScale;
 
     @OneToMany(mappedBy = "course")
     private List<Enrollment> enrollment = new ArrayList<>();
@@ -53,43 +53,11 @@ public class Course {
     @OneToMany(mappedBy = "course")
     private List<Assignments> courseAssignments;
 
-    public enum GradingScale {
-        A_PLUS("A+", 97, 100),
-        A("A", 93, 96),
-        A_MINUS("A-", 90, 92),
-        B_PLUS("B+", 87, 89),
-        B("B", 83, 86),
-        B_MINUS("B-", 80, 82),
-        C_PLUS("C+", 77, 79),
-        C("C", 73, 76),
-        C_MINUS("C-", 70, 72),
-        D_PLUS("D+", 67, 69),
-        D("D", 63, 66),
-        D_MINUS("D-", 60, 62),
-        F("F", 0, 59);
-
-        private final String letterGrade;
-        private final int lowScore;
-        private final int highScore;
-
-        GradingScale(String letterGrade, int lowScore, int highScore) {
-            this.letterGrade = letterGrade;
-            this.lowScore = lowScore;
-            this.highScore = highScore;
-        }
-
-        public String getLetterGrade() {
-            return letterGrade;
-        }
-
-        public int getLowScore() {
-            return lowScore;
-        }
-
-        public int getHighScore() {
-            return highScore;
-        }
-    }
+    @ElementCollection
+    @CollectionTable(name = "assignment_grades")
+    @MapKeyJoinColumn(name = "assignment_id") // Foreign key to Assignments table
+    @Column(name = "grade")
+    private Map<Assignments, Double> studentGrades; // Map assignment to grade
 
     // Auto generate a unique course code
     private String generateUniqueCourseCode() {
@@ -105,51 +73,5 @@ public class Course {
         return sb.toString();
     }
 
-//    public static String convertPointsToLetterGrade(double grade) {
-//        for (GradingScale scale : GradingScale.values()) {
-//            if (grade >= scale.getLowScore() && grade <= scale.getHighScore()) {
-//                return scale.getLetterGrade();
-//            }
-//        }
-//        return "N/A"; // Return "N/A" if the grade is not within any scale range
-//    }
-//
-//    public double calculateClassAverage() {
-//        double totalPoints = 0.0;
-//        int totalStudents = studentsEnrolled.size();
-//
-//        // Iterate over each assignment to get student grades
-//        for (Assignments assignment : assignments) {
-//            Map<Student, Double> grades = assignment.getStudentGrades();
-//
-//            // Iterate over each student and their grade
-//            for (Map.Entry<Student, Double> entry : grades.entrySet()) {
-//                Double grade = entry.getValue();
-//                totalPoints += grade;
-//            }
-//        }
-//
-//        // Calculate the class average by dividing the total points by the total number of students
-//        double classAverage = totalPoints / totalStudents;
-//        return classAverage;
-//    }
-
-//    public void updateGrades(List<Assignments> updatedAssignments) {
-//        // Update the grades for the course's assignments
-//        // ...
-//
-//        // Recalculate and update GPA values for enrolled students
-//        for (Student student : studentsEnrolled) {
-//            student.setGpaWeighted(Student.calculateStudentGPAWeighted());
-//            student.setGpaUnweighted(Student.calculateStudentGPAUnweighted());
-//        }
-//    }
-//
-//    public void enrollInCourse(Student student) {
-//        // Add the student to the list of enrolled students
-//        studentsEnrolled.add(student);
-//        // Recalculate and update GPA values for the enrolled student
-//        student.setGpaWeighted(Student.calculateStudentGPAWeighted());
-//        student.setGpaUnweighted(Student.calculateStudentGPAUnweighted());
-//    }
+    //method to calculate class average
 }
