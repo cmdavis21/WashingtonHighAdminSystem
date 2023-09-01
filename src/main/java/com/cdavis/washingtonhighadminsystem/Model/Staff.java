@@ -51,6 +51,6 @@ public class Staff {
     @Column(name = "date_of_hire")
     private float dateOfHire;
 
-    @ManyToMany(mappedBy = "staffAwarded")
+    @ManyToMany(mappedBy = "staffAwards")
     private List<Awards> awards;
 }

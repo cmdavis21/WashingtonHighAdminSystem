@@ -21,7 +21,6 @@ public class Assignments {
 
     @ManyToOne
     @JoinColumn(name = "course_code")
-    @Column(name = "course_code")
     private Course courseCode;
 
     @Column(name = "course_name")
